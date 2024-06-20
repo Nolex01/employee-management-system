@@ -54,15 +54,26 @@ class EmployeeController extends Controller
 
     public function editForm(User $employee)
     {
+
+        $departments = Department::all();
+        $roles = Role::all();
+
         return Inertia::render('Admin/Employees/Edit', [
-            'employee' => $employee
+            'employee' => $employee,
+            'departments' => $departments,
+            'roles' => $roles,
         ]);
     }
 
     public function edit(User $employee, Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|unique:users,email',
+            'phone_number' => 'nullable|string|max:20|unique:users,phone_number',
+            'role_id' => 'nullable|exists:roles,id',
+            'department_id' => 'nullable|exists:departments,id',
+            'salary' => 'nullable|numeric|min:0',
         ]);
 
         $employee->update($validatedData);
