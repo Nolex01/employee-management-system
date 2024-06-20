@@ -15,24 +15,11 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     <header>
                         <nav>
                             {auth.user ? (
-                                <Link
-                                    href={route('dashboard')}
-                                >
-                                    Dashboard
-                                </Link>
-                            ) : (
                                 <>
                                     <Link
-                                        href={route('login')}
-                                        className='mr-5'
+                                        href={route('dashboard')}
                                     >
-                                        Log in
-                                    </Link>
-                                    <Link
-                                        href={route('register')}
-                                        className='mr-5'
-                                    >
-                                        Register
+                                        Dashboard
                                     </Link>
                                     <Link
                                         className='mr-5'
@@ -63,6 +50,21 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                         className='mr-5'
                                     >
                                         Work hours
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <Link
+                                        href={route('login')}
+                                        className='mr-5'
+                                    >
+                                        Log in
+                                    </Link>
+                                    <Link
+                                        href={route('register')}
+                                        className='mr-5'
+                                    >
+                                        Register
                                     </Link>
                                 </>
                             )}
