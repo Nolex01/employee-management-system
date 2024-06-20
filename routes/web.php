@@ -23,6 +23,9 @@ Route::middleware('admin')->group(function () {
     Route::get('/employees', [EmployeeController::class, 'list'])->name('employees.list');
     Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
     Route::post('/employee/store', [EmployeeController::class, 'store'])->name('employee.store');
+    Route::get('/employee/form/delete/{employee}', [PictureController::class, 'deleteForm'])->name('employee.form.delete');
+    Route::delete('/employee/delete/{employee}', [PictureController::class, 'delete'])->name('employee.delete');
 });
 
 require __DIR__.'/auth.php';
+
