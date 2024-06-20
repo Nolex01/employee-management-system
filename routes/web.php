@@ -22,6 +22,7 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/employees', [EmployeeController::class, 'list'])->name('employees.list');
     Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
+    Route::post('/employee/store', [EmployeeController::class, 'store'])->name('employee.store');
 });
 
 require __DIR__.'/auth.php';
