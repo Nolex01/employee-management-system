@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatisticController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,6 +19,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('admin')->group(function () {
     Route::get('/statistics', [StatisticController::class, 'list'])->name('statistics.list');
+    Route::get('/employees', [EmployeeController::class, 'list'])->name('employees.list');
 });
 
 require __DIR__.'/auth.php';
