@@ -68,6 +68,11 @@ class EmployeeController extends Controller
         $employee->update($validatedData);
     }
 
-
+    public function deleteForm(User $employee)
+    {
+        return Inertia::render('Admin/Employees/Delete', [
+            'employee' => $employee
+        ]);
+    }
 
 }
