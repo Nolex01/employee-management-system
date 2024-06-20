@@ -75,4 +75,10 @@ class EmployeeController extends Controller
         ]);
     }
 
+    public function delete(User $employee)
+    {
+        $employee->delete();
+        return to_route('employees.list');
+    }
+
 }
