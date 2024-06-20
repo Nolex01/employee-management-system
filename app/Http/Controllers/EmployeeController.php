@@ -30,4 +30,26 @@ class EmployeeController extends Controller
             'roles' => $roles,
         ]);
     }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone_number' => 'required|string|max:20|unique:users,phone_number',
+            'password' => 'required|string|min:8',
+            'role_id' => 'nullable|exists:roles,id',
+            'department_id' => 'nullable|exists:departments,id',
+            'salary' => 'required|numeric|min:0',
+        ]);
+
+        $employee = User::create($validatedData);
+
+        $users = User::all();
+        
+        return Inertia::render('Admin/Employees/List', [
+            'employees' => $users,
+        ]);
+    }
+
 }
