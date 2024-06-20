@@ -56,15 +56,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 <>
                                     <Link
                                         href={route('login')}
-                                        className='mr-5'
                                     >
                                         Log in
-                                    </Link>
-                                    <Link
-                                        href={route('register')}
-                                        className='mr-5'
-                                    >
-                                        Register
                                     </Link>
                                 </>
                             )}
