@@ -19,7 +19,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('admin')->group(function () {
     Route::get('/statistics', [StatisticController::class, 'list'])->name('statistics.list');
+
     Route::get('/employees', [EmployeeController::class, 'list'])->name('employees.list');
+    Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
 });
 
 require __DIR__.'/auth.php';
