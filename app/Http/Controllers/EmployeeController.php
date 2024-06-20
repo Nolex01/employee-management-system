@@ -52,4 +52,11 @@ class EmployeeController extends Controller
         ]);
     }
 
+    public function editForm(User $employee)
+    {
+        return Inertia::render('Admin/Employees/Edit', [
+            'employee' => $employee
+        ]);
+    }
+
 }
