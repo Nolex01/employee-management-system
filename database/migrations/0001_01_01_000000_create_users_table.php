@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('role_id')->nullable()->constrained('roles')->onDelete('set null');
             $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('set null');
+            $table->boolean('is_admin')->default(false);
             $table->decimal('salary', 10, 2);
             $table->rememberToken();
             $table->timestamps();
