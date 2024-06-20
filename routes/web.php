@@ -23,12 +23,12 @@ Route::middleware('admin')->group(function () {
     Route::get('/employees', [EmployeeController::class, 'list'])->name('employees.list');
     Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
     Route::post('/employee/store', [EmployeeController::class, 'store'])->name('employee.store');
-    Route::get('/employee/form/delete/{employee}', [PictureController::class, 'deleteForm'])->name('employee.form.delete');
-    Route::delete('/employee/delete/{employee}', [PictureController::class, 'delete'])->name('employee.delete');
-    Route::get('/employee/form/delete/{employee}', [PictureController::class, 'deleteForm'])->name('employee.form.delete');
-    Route::delete('/employee/delete/{employee}', [PictureController::class, 'delete'])->name('employee.delete');
-    Route::get('/employee/form/edit/{employee}', [PictureController::class, 'editForm'])->name('employee.form.edit');
-    Route::patch('/employee/edit/{employee}', [PictureController::class, 'edit'])->name('employee.edit');
+    Route::get('/employee/form/delete/{employee}', [EmployeeController::class, 'deleteForm'])->name('employee.form.delete');
+    Route::delete('/employee/delete/{employee}', [EmployeeController::class, 'delete'])->name('employee.delete');
+    Route::get('/employee/form/delete/{employee}', [EmployeeController::class, 'deleteForm'])->name('employee.form.delete');
+    Route::delete('/employee/delete/{employee}', [EmployeeController::class, 'delete'])->name('employee.delete');
+    Route::get('/employee/form/edit/{employee}', [EmployeeController::class, 'editForm'])->name('employee.form.edit');
+    Route::patch('/employee/edit/{employee}', [EmployeeController::class, 'edit'])->name('employee.edit');
 });
 
 require __DIR__.'/auth.php';
