@@ -59,4 +59,15 @@ class EmployeeController extends Controller
         ]);
     }
 
+    public function edit(User $employee, Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $employee->update($validatedData);
+    }
+
+
+
 }
