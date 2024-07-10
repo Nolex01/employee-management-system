@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,6 +30,8 @@ Route::middleware('admin')->group(function () {
     Route::delete('/employee/delete/{employee}', [EmployeeController::class, 'delete'])->name('employee.delete');
     Route::get('/employee/form/edit/{employee}', [EmployeeController::class, 'editForm'])->name('employee.form.edit');
     Route::patch('/employee/edit/{employee}', [EmployeeController::class, 'edit'])->name('employee.edit');
+
+    Route::get('/departments', [DepartmentController::class, 'list'])->name('departments.list');
 });
 
 require __DIR__.'/auth.php';
