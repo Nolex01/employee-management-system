@@ -30,6 +30,9 @@ Route::middleware('admin')->group(function () {
     Route::patch('/employee/edit/{employee}', [EmployeeController::class, 'edit'])->name('employee.edit');
 
     Route::get('/departments', [DepartmentController::class, 'list'])->name('departments.list');
+    Route::post('/department/store', [DepartmentController::class, 'store'])->name('department.store');
+    Route::get('/department/form/delete/{department}', [DepartmentController::class, 'deleteForm'])->name('department.form.delete');
+    Route::delete('/department/delete/{department}', [DepartmentController::class, 'delete'])->name('department.delete');
 });
 
 require __DIR__.'/auth.php';
