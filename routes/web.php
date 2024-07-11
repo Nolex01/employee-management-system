@@ -36,7 +36,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/department/form/delete/{department}', [DepartmentController::class, 'deleteForm'])->name('department.form.delete');
     Route::delete('/department/delete/{department}', [DepartmentController::class, 'delete'])->name('department.delete');
 
-    Route::get('/roles', [RoleController::class, 'list'])->name('role.list');
+    Route::get('/roles', [RoleController::class, 'list'])->name('roles.list');
     Route::get('/role/create', [RoleController::class, 'create'])->name('role.create');
     Route::post('/role/store', [RoleController::class, 'store'])->name('role.store');
     Route::get('/role/form/delete/{role}', [RoleController::class, 'deleteForm'])->name('role.form.delete');
