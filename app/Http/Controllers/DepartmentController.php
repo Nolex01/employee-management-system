@@ -16,4 +16,9 @@ class DepartmentController extends Controller
             'departments' => $departments,
         ]);
     }
+
+    public function create()
+    {
+        return Inertia::render('Admin/Departments/Create');
+    }
 }
