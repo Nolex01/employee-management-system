@@ -44,4 +44,10 @@ class DepartmentController extends Controller
             'department' => $department
         ]);
     }
+
+    public function delete(Department $department)
+    {
+        $department->delete();
+        return to_route('departments.list');
+    }
 }
