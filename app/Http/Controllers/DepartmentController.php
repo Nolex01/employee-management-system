@@ -21,4 +21,20 @@ class DepartmentController extends Controller
     {
         return Inertia::render('Admin/Departments/Create');
     }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
+
+        $department = Department::create($validatedData);
+
+        $departments = Department::all();
+        
+        return Inertia::render('Admin/Departments/List', [
+            'departments' => $departments,
+        ]);
+    }
 }
