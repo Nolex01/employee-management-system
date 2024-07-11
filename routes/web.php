@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,12 @@ Route::middleware('admin')->group(function () {
     Route::post('/department/store', [DepartmentController::class, 'store'])->name('department.store');
     Route::get('/department/form/delete/{department}', [DepartmentController::class, 'deleteForm'])->name('department.form.delete');
     Route::delete('/department/delete/{department}', [DepartmentController::class, 'delete'])->name('department.delete');
+
+    Route::get('/roles', [RoleController::class, 'list'])->name('role.list');
+    Route::get('/role/create', [RoleController::class, 'create'])->name('role.create');
+    Route::post('/role/store', [RoleController::class, 'store'])->name('role.store');
+    Route::get('/role/form/delete/{role}', [RoleController::class, 'deleteForm'])->name('role.form.delete');
+    Route::delete('/role/delete/{role}', [RoleController::class, 'delete'])->name('role.delete');
 });
 
 require __DIR__.'/auth.php';
