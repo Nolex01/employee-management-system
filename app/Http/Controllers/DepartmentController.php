@@ -37,4 +37,11 @@ class DepartmentController extends Controller
             'departments' => $departments,
         ]);
     }
+
+    public function deleteForm(Department $department)
+    {
+        return Inertia::render('Admin/Departments/Delete', [
+            'department' => $department
+        ]);
+    }
 }
