@@ -20,23 +20,32 @@ export default function Authenticated({ user, header, children }) {
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
-                                <NavLink href={route('statistics.list')} active={route().current('statistics.list')}>
-                                    Statistics
-                                </NavLink>
-                                <NavLink href={route('employees.list')} active={route().current('employees.list')}>
-                                    Employees
-                                </NavLink>
-                                <NavLink href={route('departments.list')} active={route().current('departments.list')}>
-                                    Deparments
-                                </NavLink>
-                                <NavLink href={route('roles.list')} active={route().current('roles.list')}>
-                                    Roles
-                                </NavLink>
-                            </div>
+                            {user.is_admin ? (
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                        Dashboard
+                                    </NavLink>
+                                    <NavLink href={route('statistics.list')} active={route().current('statistics.list')}>
+                                        Statistics
+                                    </NavLink>
+                                    <NavLink href={route('employees.list')} active={route().current('employees.list')}>
+                                        Employees
+                                    </NavLink>
+                                    <NavLink href={route('departments.list')} active={route().current('departments.list')}>
+                                        Departments
+                                    </NavLink>
+                                    <NavLink href={route('roles.list')} active={route().current('roles.list')}>
+                                        Roles
+                                    </NavLink>
+                                </div>
+                            ) : 
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                        Dashboard
+                                    </NavLink>
+                                </div>
+                            }
+
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
@@ -103,6 +112,7 @@ export default function Authenticated({ user, header, children }) {
                 </div>
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
+                {user.is_admin ? (
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
@@ -120,7 +130,13 @@ export default function Authenticated({ user, header, children }) {
                             Roles
                         </ResponsiveNavLink>
                     </div>
-
+                ) : 
+                    <div className="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                            Dashboard
+                        </ResponsiveNavLink>
+                    </div>
+                }
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
                             <div className="font-medium text-base text-gray-800">{user.name}</div>
