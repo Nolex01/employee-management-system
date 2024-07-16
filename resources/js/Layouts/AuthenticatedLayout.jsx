@@ -37,11 +37,17 @@ export default function Authenticated({ user, header, children }) {
                                     <NavLink href={route('roles.list')} active={route().current('roles.list')}>
                                         Roles
                                     </NavLink>
+                                    <NavLink href={route('leaves.list')} active={route().current('leaves.list')}>
+                                        Leaves
+                                    </NavLink>
                                 </div>
                             ) : 
                                 <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                     <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                         Dashboard
+                                    </NavLink>
+                                    <NavLink href={route('myleaves.list')} active={route().current('myleaves.list')}>
+                                        Leaves
                                     </NavLink>
                                 </div>
                             }
@@ -129,11 +135,17 @@ export default function Authenticated({ user, header, children }) {
                         <ResponsiveNavLink href={route('roles.list')} active={route().current('roles.list')}>
                             Roles
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('leaves.list')} active={route().current('leaves.list')}>
+                            Leaves
+                        </ResponsiveNavLink>
                     </div>
                 ) : 
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('myleaves.list')} active={route().current('myleaves.list')}>
+                            Leaves
                         </ResponsiveNavLink>
                     </div>
                 }
