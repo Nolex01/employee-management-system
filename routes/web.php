@@ -5,6 +5,7 @@ use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\LeaveController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,6 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/myleaves', [LeaveController::class, 'listOwn'])->name('myleaves.list');
+    Route::get('/leave/create', [LeaveController::class, 'create'])->name('leave.create');
+    Route::post('/leave/store', [LeaveController::class, 'store'])->name('leave.store');
 });
 
 Route::middleware('admin')->group(function () {
@@ -41,6 +46,10 @@ Route::middleware('admin')->group(function () {
     Route::post('/role/store', [RoleController::class, 'store'])->name('role.store');
     Route::get('/role/form/delete/{role}', [RoleController::class, 'deleteForm'])->name('role.form.delete');
     Route::delete('/role/delete/{role}', [RoleController::class, 'delete'])->name('role.delete');
+
+    Route::get('/leaves', [LeaveController::class, 'list'])->name('leaves.list');
+    Route::get('/leave/form/edit/{leave}', [LeaveController::class, 'editForm'])->name('leave.form.edit');
+    Route::patch('/leave/edit/{leave}', [LeaveController::class, 'edit'])->name('leave.edit');
 });
 
 require __DIR__.'/auth.php';
