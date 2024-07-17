@@ -9,7 +9,7 @@ export default function Dashboard({ auth }) {
         >
             <Head title="Dashboard" />
 
-            <div className="py-6 bg-gray-100">
+            <div className="py-6">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-lg sm:rounded-lg">
                         <div className="p-6">

@@ -9,7 +9,7 @@ export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-cover" style={{ backgroundImage: "url('https://i.imgur.com/aGgBQk5.jpeg')" }}>
             <nav className="bg-gray-200 shadow-lg">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="relative flex items-center justify-between h-16">
@@ -192,7 +192,7 @@ export default function Authenticated({ user, header, children }) {
                 </header>
             )}
 
-            <main className="bg-gray-100 pb-10">
+            <main className="pb-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="py-6">
                         {children}
