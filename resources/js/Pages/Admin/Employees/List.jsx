@@ -57,7 +57,7 @@ const List = ({ auth, employees }) => {
                                             <td className="py-3 px-6 text-left">{employee.phone_number}</td>
                                             <td className="py-3 px-6 text-left">{employee.role_id}</td>
                                             <td className="py-3 px-6 text-left">{employee.department_id}</td>
-                                            <td className="py-3 px-6 text-left">{employee.salary}</td>
+                                            <td className="py-3 px-6 text-left">{employee.salary.toLocaleString('en-US')}</td>
                                             <td className="py-3 px-1 text-left">
                                                 {employee.is_admin === 1 ? "Yes" : "No"}
                                             </td>
@@ -66,7 +66,7 @@ const List = ({ auth, employees }) => {
                                             <td className="py-3 px-6 text-left">
                                                 <a href={route('employee.form.edit', employee.id)} className="text-blue-600 hover:underline">Edit</a>
                                                 <span className="mx-1">|</span>
-                                                <a href={route('employee.form.delete', employee.id)} className="text-blue-600 hover:underline">Delete</a>
+                                                <a href={route('employee.form.delete', employee.id)} className="text-red-600 hover:text-red-900 hover:underline">Delete</a>
                                             </td>
                                         </tr>
                                     ))

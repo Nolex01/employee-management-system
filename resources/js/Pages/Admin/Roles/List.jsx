@@ -47,7 +47,7 @@ const List = ({ auth, roles }) => {
                                             <td className="py-3 px-6 text-left">{formatOrderTime(role.created_at)}</td>
                                             <td className="py-3 px-6 text-left">{formatOrderTime(role.updated_at)}</td>
                                             <td className="py-3 px-6 text-left">
-                                                <a href={route('role.form.delete', role.id)} className="text-blue-600 hover:underline">Delete</a>
+                                                <a href={route('role.form.delete', role.id)} className="text-red-600 hover:text-red-900 hover:underline">Delete</a>
                                             </td>
                                         </tr>
                                     ))
