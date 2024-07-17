@@ -103,7 +103,7 @@ const CreateEmployeeForm = ({ departments, roles }) => {
                     <TextInput
                         id="salary"
                         type="number"
-                        step="0.01"
+                        step="1"
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                         value={data.salary || ''}
                         onChange={(e) => setData('salary', e.target.value)}
