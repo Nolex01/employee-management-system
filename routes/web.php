@@ -57,6 +57,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/leave/form/edit/{leave}', [LeaveController::class, 'editForm'])->name('leave.form.edit');
     Route::patch('/leave/edit/{leave}', [LeaveController::class, 'edit'])->name('leave.edit');
 
+    Route::get('/workhours', [WorkHourController::class, 'list'])->name('workhours.list');
 });
 
 require __DIR__.'/auth.php';
