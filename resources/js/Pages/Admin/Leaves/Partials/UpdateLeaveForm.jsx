@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from '@inertiajs/react';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
@@ -6,7 +6,6 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { Transition } from '@headlessui/react';
 
 const UpdateLeaveForm = ({ leave }) => {
-
     const { data, setData, patch, processing, recentlySuccessful } = useForm({
         user_id: leave.user_id,
         start_date: leave.start_date,
@@ -17,27 +16,24 @@ const UpdateLeaveForm = ({ leave }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         patch(route('leave.edit', leave.id), {
             preserveScroll: true
         });
     };
 
     return (
-        <section className="max-w-xl">
-            <header>
-                <h2 className="text-lg font-medium text-gray-900">Edit leave</h2>
+        <section className="max-w-xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+            <header className="bg-gray-200 py-4 px-6">
+                <h2 className="text-lg font-medium text-gray-900">Edit Leave</h2>
             </header>
 
-            <form onSubmit={handleSubmit} className="mt-6 space-y-6">
+            <form onSubmit={handleSubmit} className="p-6 space-y-6">
                 <div>
                     <InputLabel htmlFor="user_id" value="User ID" />
-
                     <TextInput
                         id="user_id"
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
                         value={data.user_id}
-                        onChange={(e) => setData('user_id', e.target.value)}
                         readOnly
                     />
                 </div>
@@ -89,26 +85,26 @@ const UpdateLeaveForm = ({ leave }) => {
                         onChange={(e) => setData('status', e.target.value)}
                     >
                         <option value="Pending">Pending</option>
-                        <option value="Accepted">Accepted</option>
-                        <option value="Denied">Denied</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
                     </select>
                 </div>
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
-
                     <Transition
                         show={recentlySuccessful}
-                        enter="transition ease-in-out"
+                        enter="transition ease-in-out duration-300"
                         enterFrom="opacity-0"
-                        leave="transition ease-in-out"
+                        enterTo="opacity-100"
+                        leave="transition ease-in-out duration-300"
+                        leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
                         <p className="text-sm text-gray-600">Saved.</p>
                     </Transition>
                 </div>
             </form>
-            
         </section>
     );
 };

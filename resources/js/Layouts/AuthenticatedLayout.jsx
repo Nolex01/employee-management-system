@@ -10,102 +10,34 @@ export default function Authenticated({ user, header, children }) {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
-                            </div>
-
-                            {user.is_admin ? (
-                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                        Dashboard
-                                    </NavLink>
-                                    <NavLink href={route('statistics.list')} active={route().current('statistics.list')}>
-                                        Statistics
-                                    </NavLink>
-                                    <NavLink href={route('employees.list')} active={route().current('employees.list')}>
-                                        Employees
-                                    </NavLink>
-                                    <NavLink href={route('departments.list')} active={route().current('departments.list')}>
-                                        Departments
-                                    </NavLink>
-                                    <NavLink href={route('roles.list')} active={route().current('roles.list')}>
-                                        Roles
-                                    </NavLink>
-                                    <NavLink href={route('leaves.list')} active={route().current('leaves.list')}>
-                                        Leaves
-                                    </NavLink>
-                                </div>
-                            ) : 
-                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                        Dashboard
-                                    </NavLink>
-                                    <NavLink href={route('myleaves.list')} active={route().current('myleaves.list')}>
-                                        Leaves
-                                    </NavLink>
-                                </div>
-                            }
-
-                        </div>
-
-                        <div className="hidden sm:flex sm:items-center sm:ms-6">
-                            <div className="ms-3 relative">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {user.name}
-
-                                                <svg
-                                                    className="ms-2 -me-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
-
-                                    <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
-                            </div>
-                        </div>
-
-                        <div className="-me-2 flex items-center sm:hidden">
+            <nav className="bg-gray-200 shadow-lg">
+                <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+                    <div className="relative flex items-center justify-between h-16">
+                        <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                             <button
-                                onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                                onClick={() => setShowingNavigationDropdown(!showingNavigationDropdown)}
+                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-800 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 focus:text-gray-800 transition duration-150 ease-in-out"
                             >
-                                <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                <svg
+                                    className={`${showingNavigationDropdown ? 'hidden' : 'block'} h-6 w-6`}
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
                                     <path
-                                        className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
                                         d="M4 6h16M4 12h16M4 18h16"
                                     />
+                                </svg>
+                                <svg
+                                    className={`${showingNavigationDropdown ? 'block' : 'hidden'} h-6 w-6`}
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
                                     <path
-                                        className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
@@ -114,51 +46,140 @@ export default function Authenticated({ user, header, children }) {
                                 </svg>
                             </button>
                         </div>
+
+                        <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                            <div className="flex-shrink-0">
+                                <Link href="/">
+                                    <ApplicationLogo className="block h-8 w-auto text-gray-600" />
+                                </Link>
+                            </div>
+                            <div className="hidden sm:block sm:ml-6">
+                                <div className="flex space-x-4">
+                                    {user.is_admin ? (
+                                        <>
+                                            <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                                Dashboard
+                                            </NavLink>
+                                            <NavLink href={route('statistics.list')} active={route().current('statistics.list')}>
+                                                Statistics
+                                            </NavLink>
+                                            <NavLink href={route('employees.list')} active={route().current('employees.list')}>
+                                                Employees
+                                            </NavLink>
+                                            <NavLink href={route('departments.list')} active={route().current('departments.list')}>
+                                                Departments
+                                            </NavLink>
+                                            <NavLink href={route('roles.list')} active={route().current('roles.list')}>
+                                                Roles
+                                            </NavLink>
+                                            <NavLink href={route('leaves.list')} active={route().current('leaves.list')}>
+                                                Leaves
+                                            </NavLink>
+                                            <NavLink href={route('workhours.list')} active={route().current('workhours.list')}>
+                                                Clock in/out
+                                            </NavLink>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                                Dashboard
+                                            </NavLink>
+                                            <NavLink href={route('myleaves.list')} active={route().current('myleaves.list')}>
+                                                Leaves
+                                            </NavLink>
+                                            <NavLink href={route('myworkhours.list')} active={route().current('myworkhours.list')}>
+                                                Clock in/out
+                                            </NavLink>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                            <Dropdown>
+                                <Dropdown.Trigger>
+                                    <button
+                                        className="flex items-center text-sm font-medium text-gray-600 focus:outline-none"
+                                    >
+                                        <span className="mr-1">{user.name}</span>
+                                        <img
+                                            className="h-8 w-8 rounded-full"
+                                            src={user.profile_photo_url}
+                                            alt="User Profile"
+                                        />
+                                    </button>
+                                </Dropdown.Trigger>
+                                <Dropdown.Content>
+                                    <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                    <Dropdown.Link method="post" href={route('logout')} as="button">
+                                        Logout
+                                    </Dropdown.Link>
+                                </Dropdown.Content>
+                            </Dropdown>
+                        </div>
                     </div>
                 </div>
 
-                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                {user.is_admin ? (
+                <div className={`${showingNavigationDropdown ? 'block' : 'hidden'} sm:hidden`}>
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('statistics.list')} active={route().current('statistics.list')}>
-                            Statistics
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('employees.list')} active={route().current('employees.list')}>
-                            Employees
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('departments.list')} active={route().current('departments.list')}>
-                            Departments
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('roles.list')} active={route().current('roles.list')}>
-                            Roles
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('leaves.list')} active={route().current('leaves.list')}>
-                            Leaves
-                        </ResponsiveNavLink>
+                        {user.is_admin ? (
+                            <>
+                                <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                    Dashboard
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('statistics.list')} active={route().current('statistics.list')}>
+                                    Statistics
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('employees.list')} active={route().current('employees.list')}>
+                                    Employees
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('departments.list')} active={route().current('departments.list')}>
+                                    Departments
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('roles.list')} active={route().current('roles.list')}>
+                                    Roles
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('leaves.list')} active={route().current('leaves.list')}>
+                                    Leaves
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('workhours.list')} active={route().current('workhours.list')}>
+                                    Clock in/out
+                                </ResponsiveNavLink>
+                            </>
+                        ) : (
+                            <>
+                                <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                    Dashboard
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('myleaves.list')} active={route().current('myleaves.list')}>
+                                    Leaves
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('myworkhours.list')} active={route().current('myworkhours.list')}>
+                                    Clock in/out
+                                </ResponsiveNavLink>
+                            </>
+                        )}
                     </div>
-                ) : 
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('myleaves.list')} active={route().current('myleaves.list')}>
-                            Leaves
-                        </ResponsiveNavLink>
-                    </div>
-                }
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">{user.name}</div>
-                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
-                        </div>
 
-                        <div className="mt-3 space-y-1">
+                    <div className="pt-4 pb-3 border-t border-gray-300">
+                        <div className="flex items-center px-5">
+                            <div className="flex-shrink-0">
+                                <img
+                                    className="h-10 w-10 rounded-full"
+                                    src={user.profile_photo_url}
+                                    alt="User Profile"
+                                />
+                            </div>
+                            <div className="ml-3">
+                                <div className="text-base font-medium leading-none text-gray-600">{user.name}</div>
+                                <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                            </div>
+                        </div>
+                        <div className="mt-3 px-2">
                             <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
+                                Logout
                             </ResponsiveNavLink>
                         </div>
                     </div>
@@ -171,7 +192,13 @@ export default function Authenticated({ user, header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main className="bg-gray-100 pb-10">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="py-6">
+                        {children}
+                    </div>
+                </div>
+            </main>
         </div>
     );
 }

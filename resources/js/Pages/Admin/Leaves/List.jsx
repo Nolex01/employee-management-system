@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import NavLink from '@/Components/NavLink';
 
-export default function List({ auth, leaves }) {
+const List = ({ auth, leaves }) => {
 
     const formatOrderTime = (timeString) => {
         const options = {
@@ -17,52 +17,55 @@ export default function List({ auth, leaves }) {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Leaves</h2>}
-        >
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Leaves" />
 
             <div className="py-6 px-4">
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                    <div className="p-4">
-                        <h3 className="text-lg font-semibold mb-4">Leaves</h3>
-                        {leaves.length > 0 ? (
-                            <div className="overflow-x-auto">
-                                <table className="table-auto w-full">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>User</th>
-                                            <th>Start</th>
-                                            <th>End</th>
-                                            <th>Reason</th>
-                                            <th>Status</th>
+                <div className="bg-white rounded-lg shadow-md">
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full bg-white">
+                            <thead>
+                                <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                    <th className="py-3 px-6 text-left">ID</th>
+                                    <th className="py-3 px-6 text-left">User</th>
+                                    <th className="py-3 px-6 text-left">Start</th>
+                                    <th className="py-3 px-6 text-left">End</th>
+                                    <th className="py-3 px-6 text-left">Reason</th>
+                                    <th className="py-3 px-6 text-left">Status</th>
+                                    <th className="py-3 px-6 text-left">Created At</th>
+                                    <th className="py-3 px-6 text-left">Updated At</th>
+                                    <th className="py-3 px-6 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-gray-600 text-sm font-light">
+                                {leaves.length > 0 ? (
+                                    leaves.map(leave => (
+                                        <tr key={leave.id} className="border-b border-gray-200 hover:bg-gray-100">
+                                            <td className="py-3 px-6 text-left">{leave.id}</td>
+                                            <td className="py-3 px-6 text-left">{leave.user_id}</td>
+                                            <td className="py-3 px-6 text-left">{leave.start_date}</td>
+                                            <td className="py-3 px-6 text-left">{leave.end_date}</td>
+                                            <td className="py-3 px-6 text-left">{leave.reason}</td>
+                                            <td className="py-3 px-6 text-left">{leave.status}</td>
+                                            <td className="py-3 px-6 text-left">{formatOrderTime(leave.created_at)}</td>
+                                            <td className="py-3 px-6 text-left">{formatOrderTime(leave.updated_at)}</td>
+                                            <td className="py-3 px-6 text-left">
+                                                <a href={route('leave.form.edit', leave.id)} className="text-blue-600 hover:underline">Edit</a>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {leaves.map(leave => (
-                                            <tr key={leave.id}>
-                                                <td>{leave.id}</td>
-                                                <td>{leave.user_id}</td>
-                                                <td>{leave.start_date}</td>
-                                                <td>{leave.end_date}</td>
-                                                <td>{leave.reason}</td>
-                                                <td>{leave.status}</td>
-                                                <td>{formatOrderTime(leave.created_at)}</td>
-                                                <td>{formatOrderTime(leave.updated_at)}</td>
-                                                <td><a href={route('leave.form.edit', leave.id)} className="text-blue-600 hover:underline">Edit</a></td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        ) : (
-                            <p>No leave found.</p>
-                        )}
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="9" className="py-3 px-6 text-left text-gray-600">No leaves found.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </AuthenticatedLayout>
     );
 }
+
+export default List;

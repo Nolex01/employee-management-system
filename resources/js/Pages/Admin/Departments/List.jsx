@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import NavLink from '@/Components/NavLink';
 
-export default function List({ auth, departments }) {
+const List = ({ auth, departments }) => {
 
     const formatOrderTime = (timeString) => {
         const options = {
@@ -17,52 +17,54 @@ export default function List({ auth, departments }) {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Departments</h2>}
-        >
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Departments" />
 
             <div className="py-6 px-4">
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <NavLink href={route('department.create')}>
-                    Add new department
-                </NavLink>
-            </div>
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                    <div className="p-4">
-                        <h3 className="text-lg font-semibold mb-4">Departments</h3>
-                        {departments.length > 0 ? (
-                            <div className="overflow-x-auto">
-                                <table className="table-auto w-full">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Created</th>
+                <div className="mb-4 flex justify-between items-center">
+                    <NavLink href={route('department.create')} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                        Add new department
+                    </NavLink>
+                </div>
+                <div className="bg-white rounded-lg shadow-md">
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full bg-white">
+                            <thead>
+                                <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                    <th className="py-3 px-6 text-left">ID</th>
+                                    <th className="py-3 px-6 text-left">Name</th>
+                                    <th className="py-3 px-6 text-left">Description</th>
+                                    <th className="py-3 px-6 text-left">Created At</th>
+                                    <th className="py-3 px-6 text-left">Updated At</th>
+                                    <th className="py-3 px-6 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-gray-600 text-sm font-light">
+                                {departments.length > 0 ? (
+                                    departments.map(department => (
+                                        <tr key={department.id} className="border-b border-gray-200 hover:bg-gray-100">
+                                            <td className="py-3 px-6 text-left whitespace-nowrap">{department.id}</td>
+                                            <td className="py-3 px-6 text-left whitespace-nowrap">{department.name}</td>
+                                            <td className="py-3 px-6 text-left">{department.description}</td>
+                                            <td className="py-3 px-6 text-left">{formatOrderTime(department.created_at)}</td>
+                                            <td className="py-3 px-6 text-left">{formatOrderTime(department.updated_at)}</td>
+                                            <td className="py-3 px-6 text-left">
+                                                <a href={route('department.form.delete', department.id)} className="text-red-600 hover:text-red-900 hover:underline">Delete</a>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {departments.map(department => (
-                                            <tr key={department.id}>
-                                                <td>{department.id}</td>
-                                                <td>{department.name}</td>
-                                                <td>{department.description}</td>
-                                                <td>{formatOrderTime(department.created_at)}</td>
-                                                <td>{formatOrderTime(department.updated_at)}</td>
-                                                <td><a href={route('department.form.delete', department.id)} className="text-blue-600 hover:underline">Delete</a></td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        ) : (
-                            <p>No department found.</p>
-                        )}
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="6" className="py-3 px-6 text-left text-gray-600">No departments found.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </AuthenticatedLayout>
     );
 }
+
+export default List;
