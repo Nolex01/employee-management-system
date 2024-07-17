@@ -1,20 +1,20 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import CreateEmployeeForm from './Partials/CreateEmployeeForm';
+import DeleteRoleForm from './Partials/DeleteRoleForm';
 
-export default function Create({ auth, departments, roles })
+export default function Delete({ auth, role })
 {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Add employee</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Role #{role.id}</h2>}
         >
-            <Head title="Create Employee"/>
+            <Head title={"Role #" + role.id} />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div>
-                        <CreateEmployeeForm departments={departments} roles={roles}></CreateEmployeeForm>
+                        <DeleteRoleForm role={role}></DeleteRoleForm>
                     </div>
                 </div>
             </div>

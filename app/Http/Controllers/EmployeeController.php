@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Role;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
@@ -90,6 +92,11 @@ class EmployeeController extends Controller
     {
         $employee->delete();
         return to_route('employees.list');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 
 }

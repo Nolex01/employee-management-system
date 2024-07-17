@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import NavLink from '@/Components/NavLink';
 
-export default function List({ auth, employees }) {
+const List = ({ auth, employees }) => {
 
     const formatOrderTime = (timeString) => {
         const options = {
@@ -17,62 +17,67 @@ export default function List({ auth, employees }) {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Employees</h2>}
-        >
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Employees" />
 
-            <div className="py-6 px-4">
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <NavLink href={route('employee.create')}>
-                    Add new employee
-                </NavLink>
-            </div>
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                    <div className="p-4">
-                        <h3 className="text-lg font-semibold mb-4">Employees</h3>
-                        {employees.length > 0 ? (
-                            <div className="overflow-x-auto">
-                                <table className="table-auto w-full">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Role ID</th>
-                                            <th>Department ID</th>
-                                            <th>Salary</th>
-                                            <th>Admin</th>
-                                            <th>Created</th>
-                                            <th>Edited</th>
+            <div className="py-6">
+                <div className="mb-4 flex justify-between items-center">
+                    <NavLink href={route('employee.create')} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                        Add new employee
+                    </NavLink>
+                    <a href={"/employees/export"} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                        Export Excel
+                    </a>
+                </div>
+                <div className="bg-white rounded-lg shadow-md">
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full bg-white">
+                            <thead>
+                                <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                    <th className="py-3 px-6 text-left">ID</th>
+                                    <th className="py-3 px-6 text-left">Email</th>
+                                    <th className="py-3 px-6 text-left">Phone</th>
+                                    <th className="py-3 px-6 text-left">Role ID</th>
+                                    <th className="py-3 px-6 text-left">Department ID</th>
+                                    <th className="py-3 px-6 text-left">Salary</th>
+                                    <th className="py-3 px-6 text-left">Admin</th>
+                                    <th className="py-3 px-6 text-left">Created At</th>
+                                    <th className="py-3 px-6 text-left">Updated At</th>
+                                    <th className="py-3 px-6 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-gray-600 text-sm font-light">
+                                {employees.length > 0 ? (
+                                    employees.map(employee => (
+                                        <tr key={employee.id} className="border-b border-gray-200 hover:bg-gray-100">
+                                            <td className="py-3 px-6 text-left">{employee.id}</td>
+                                            <td className="py-3 px-6 text-left">{employee.email}</td>
+                                            <td className="py-3 px-6 text-left">{employee.phone_number}</td>
+                                            <td className="py-3 px-6 text-left">{employee.role_id}</td>
+                                            <td className="py-3 px-6 text-left">{employee.department_id}</td>
+                                            <td className="py-3 px-6 text-left">{employee.salary}</td>
+                                            <td className="py-3 px-6 text-left">{employee.is_admin}</td>
+                                            <td className="py-3 px-6 text-left">{formatOrderTime(employee.created_at)}</td>
+                                            <td className="py-3 px-6 text-left">{formatOrderTime(employee.updated_at)}</td>
+                                            <td className="py-3 px-6 text-left">
+                                                <a href={route('employee.form.edit', employee.id)} className="text-blue-600 hover:underline">Edit</a>
+                                                <span className="mx-1">|</span>
+                                                <a href={route('employee.form.delete', employee.id)} className="text-blue-600 hover:underline">Delete</a>
+                                            </td>
                                         </tr>
-                                    </thead>    
-                                    <tbody>
-                                        {employees.map(employee => (
-                                            <tr key={employee.id}>
-                                                <td>{employee.id}</td>
-                                                <td>{employee.email}</td>
-                                                <td>{employee.phone_number}</td>
-                                                <td>{employee.role_id}</td>
-                                                <td>{employee.department_id}</td>
-                                                <td>{employee.salary}</td>
-                                                <td>{employee.is_admin}</td>
-                                                <td>{formatOrderTime(employee.created_at)}</td>
-                                                <td>{formatOrderTime(employee.updated_at)}</td>
-                                                <td><a href={route('employee.form.edit', employee.id)} className="text-blue-600 hover:underline">Edit</a></td>
-                                                <td><a href={route('employee.form.delete', employee.id)} className="text-blue-600 hover:underline">Delete</a></td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        ) : (
-                            <p>No employees found.</p>
-                        )}
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="10" className="py-3 px-6 text-left text-gray-600">No employees found.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </AuthenticatedLayout>
     );
 }
+
+export default List;
