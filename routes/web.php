@@ -6,6 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\WorkHourController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,6 +23,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/myleaves', [LeaveController::class, 'listOwn'])->name('myleaves.list');
     Route::get('/leave/create', [LeaveController::class, 'create'])->name('leave.create');
     Route::post('/leave/store', [LeaveController::class, 'store'])->name('leave.store');
+
+    Route::get('/myworkhours', [WorkHourController::class, 'listOwn'])->name('myworkhours.list');
+    Route::post('/workhour/store', [WorkHourController::class, 'store'])->name('workhour.store');
+    Route::get('/clockin', [WorkHourController::class, 'clockIn'])->name('clockin.create');
+    Route::get('/clockout', [WorkHourController::class, 'clockOut'])->name('clockout.create');
 });
 
 Route::middleware('admin')->group(function () {
@@ -50,6 +56,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/leaves', [LeaveController::class, 'list'])->name('leaves.list');
     Route::get('/leave/form/edit/{leave}', [LeaveController::class, 'editForm'])->name('leave.form.edit');
     Route::patch('/leave/edit/{leave}', [LeaveController::class, 'edit'])->name('leave.edit');
+
 });
 
 require __DIR__.'/auth.php';
