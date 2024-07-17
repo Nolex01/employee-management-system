@@ -35,14 +35,15 @@ const List = ({ auth, employees }) => {
                             <thead>
                                 <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
                                     <th className="py-3 px-6 text-left">ID</th>
+                                    <th className="py-3 px-6 text-left">Name</th>
                                     <th className="py-3 px-6 text-left">Email</th>
                                     <th className="py-3 px-6 text-left">Phone</th>
-                                    <th className="py-3 px-6 text-left">Role ID</th>
-                                    <th className="py-3 px-6 text-left">Department ID</th>
+                                    <th className="py-3 px-1 text-left">Role</th>
+                                    <th className="py-3 px-1 text-left">Department</th>
                                     <th className="py-3 px-6 text-left">Salary</th>
-                                    <th className="py-3 px-6 text-left">Admin</th>
-                                    <th className="py-3 px-6 text-left">Created At</th>
-                                    <th className="py-3 px-6 text-left">Updated At</th>
+                                    <th className="py-3 px-1 text-left">Admin</th>
+                                    <th className="py-3 px-6 text-left">Joined</th>
+                                    <th className="py-3 px-6 text-left">Updated</th>
                                     <th className="py-3 px-6 text-left">Actions</th>
                                 </tr>
                             </thead>
@@ -51,12 +52,15 @@ const List = ({ auth, employees }) => {
                                     employees.map(employee => (
                                         <tr key={employee.id} className="border-b border-gray-200 hover:bg-gray-100">
                                             <td className="py-3 px-6 text-left">{employee.id}</td>
+                                            <td className="py-3 px-6 text-left">{employee.name}</td>
                                             <td className="py-3 px-6 text-left">{employee.email}</td>
                                             <td className="py-3 px-6 text-left">{employee.phone_number}</td>
                                             <td className="py-3 px-6 text-left">{employee.role_id}</td>
                                             <td className="py-3 px-6 text-left">{employee.department_id}</td>
                                             <td className="py-3 px-6 text-left">{employee.salary}</td>
-                                            <td className="py-3 px-6 text-left">{employee.is_admin}</td>
+                                            <td className="py-3 px-1 text-left">
+                                                {employee.is_admin === 1 ? "Yes" : "No"}
+                                            </td>
                                             <td className="py-3 px-6 text-left">{formatOrderTime(employee.created_at)}</td>
                                             <td className="py-3 px-6 text-left">{formatOrderTime(employee.updated_at)}</td>
                                             <td className="py-3 px-6 text-left">
