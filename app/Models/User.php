@@ -25,6 +25,7 @@ class User extends Authenticatable
         'department_id',
         'salary',
         'is_admin',
+        'avatar',
     ];
 
     /**
