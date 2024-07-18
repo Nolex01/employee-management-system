@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/workhour/store', [WorkHourController::class, 'store'])->name('workhour.store');
     Route::get('/clockin', [WorkHourController::class, 'clockIn'])->name('clockin.create');
     Route::get('/clockout', [WorkHourController::class, 'clockOut'])->name('clockout.create');
+
+    Route::post('/employee/update-avatar', [EmployeeController::class, 'updateAvatar'])->name('avatar.update');
 });
 
 Route::middleware('admin')->group(function () {
