@@ -7,7 +7,6 @@ export default function Delete({ auth, role })
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Role #{role.id}</h2>}
         >
             <Head title={"Role #" + role.id} />
 
