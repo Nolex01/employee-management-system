@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('work_hours', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->timestamp('check_in');
+            $table->timestamp('check_in')->nullable();
             $table->timestamp('check_out')->nullable();
             $table->timestamps();
         });
