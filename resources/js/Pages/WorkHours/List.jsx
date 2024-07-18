@@ -21,7 +21,7 @@ const List = ({ auth, workhours }) => {
             <Head title="WorkHours" />
 
             <div className="py-6 px-4">
-                <div className='flex justify-center'>
+                <div className='flex justify-center mb-10'>
                     <NavLink href={route('clockin.create')} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
                         Clock in
                     </NavLink>
