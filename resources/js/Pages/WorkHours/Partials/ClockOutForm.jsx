@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 const ClockInForm = () => {
     const { data, setData, post, processing } = useForm({
         check_out: '',
+        check_in: null,
     });
 
     const [readableTimestamp, setReadableTimestamp] = useState('');
