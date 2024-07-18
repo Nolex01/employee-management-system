@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('set null');
             $table->boolean('is_admin')->default(false);
             $table->decimal('salary', 10, 2);
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
