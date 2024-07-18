@@ -5,7 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { Transition } from '@headlessui/react';
 
 const AvatarUpload = ({ initialAvatar, onSuccess }) => {
-    const { data, setData, post, processing, recentlySuccessful } = useForm({
+    const { data, setData, post, processing, recentlySuccessful, errors } = useForm({
         avatar: null,
     });
 
@@ -58,6 +58,17 @@ const AvatarUpload = ({ initialAvatar, onSuccess }) => {
                     <img src={avatarPreview} alt="Avatar Preview" className="mt-2 h-20 w-20 object-cover rounded-full" />
                 )}
             </div>
+
+            {Object.keys(errors).length > 0 && (
+                    <div className="mt-4 p-2 bg-red-100 border border-red-400 text-red-700">
+                        <p className="font-bold">Please fix the following errors:</p>
+                        <ul className="list-disc list-inside">
+                            {Object.keys(errors).map((key) => (
+                                <li key={key}>{errors[key]}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
 
             <div className="flex items-center gap-4">
                 <PrimaryButton disabled={processing}>Upload Avatar</PrimaryButton>

@@ -6,7 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { Transition } from '@headlessui/react';
 
 const UpdateLeaveForm = ({ leave }) => {
-    const { data, setData, patch, processing, recentlySuccessful } = useForm({
+    const { data, setData, patch, processing, recentlySuccessful, errors } = useForm({
         user_id: leave.user_id,
         start_date: leave.start_date,
         end_date: leave.end_date,
@@ -89,6 +89,17 @@ const UpdateLeaveForm = ({ leave }) => {
                         <option value="Rejected">Rejected</option>
                     </select>
                 </div>
+
+                {Object.keys(errors).length > 0 && (
+                    <div className="mt-4 p-2 bg-red-100 border border-red-400 text-red-700">
+                        <p className="font-bold">Please fix the following errors:</p>
+                        <ul className="list-disc list-inside">
+                            {Object.keys(errors).map((key) => (
+                                <li key={key}>{errors[key]}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
