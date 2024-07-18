@@ -57,7 +57,7 @@ class WorkHourController extends Controller
 
         if($validatedData['check_in']){
             if ($lastWorkhour && is_null($lastWorkhour->check_out)) {
-                return redirect()->back()->with('error', 'You cannot create a new record until the previous record not closed.');
+                return redirect()->back()->withErrors(['check_in' => 'You cannot create a new record until the previous record is closed.'])->withInput();
             } else {
                 $workhour = WorkHour::create($validatedData);
             }
@@ -65,7 +65,7 @@ class WorkHourController extends Controller
 
         if($validatedData['check_out']){
             if ($lastWorkhour && (is_null($lastWorkhour->check_in) || isset($lastWorkhour->check_out))) {
-                return redirect()->back()->with('error', 'You cannot create a new record until the previous record not closed.');
+                return redirect()->back()->withErrors(['check_out' => 'You cannot create a new record until the previous record is closed.'])->withInput();
             } else {
 
                 $lastWorkhour->update(['check_out' => $validatedData['check_out']]);
