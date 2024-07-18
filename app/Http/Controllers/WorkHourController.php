@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\WorkHour;
+use App\Models\User;
 
 class WorkHourController extends Controller
 {
     public function list()
     {
         $workhours = WorkHour::all();
+        $users = User::all();
 
         return Inertia::render('Admin/WorkHours/List', [
             'workhours' => $workhours,
+            'users' => $users, 
         ]);
     }
 

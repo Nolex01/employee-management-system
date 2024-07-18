@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import NavLink from '@/Components/NavLink';
 
-const List = ({ auth, workhours }) => {
+const List = ({ auth, workhours, users }) => {
 
     const formatOrderTime = (timeString) => {
         const options = {
@@ -14,6 +14,11 @@ const List = ({ auth, workhours }) => {
             hour12: false,
         };
         return new Date(timeString).toLocaleString('en-US', options);
+    };
+
+    const getUsername = (userId) => {
+        const user = users.find(user => user.id === userId);
+        return user ? user.name : 'Unkown!';
     };
 
     return (
@@ -37,7 +42,7 @@ const List = ({ auth, workhours }) => {
                                     workhours.map(workhour => (
                                         <tr key={workhour.id} className="border-b border-gray-200 hover:bg-gray-100">
                                             <td className="py-3 px-6 text-left">{workhour.id}</td>
-                                            <td className="py-3 px-6 text-left">{workhour.user_id}</td>
+                                            <td className="py-3 px-6 text-left">{getUsername(workhour.user_id)}</td>
                                             <td className="py-3 px-6 text-left">{formatOrderTime(workhour.check_in)}</td>
                                             <td className="py-3 px-6 text-left">{formatOrderTime(workhour.check_out)}</td>
                                         </tr>

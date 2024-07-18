@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import NavLink from '@/Components/NavLink';
 
-const List = ({ auth, leaves }) => {
+const List = ({ auth, leaves, users }) => {
 
     const formatOrderTime = (timeString) => {
         const options = {
@@ -14,6 +14,11 @@ const List = ({ auth, leaves }) => {
             hour12: false,
         };
         return new Date(timeString).toLocaleString('en-US', options);
+    };
+
+    const getUsername = (userId) => {
+        const user = users.find(user => user.id === userId);
+        return user ? user.name : 'Unkown!';
     };
 
     return (
@@ -42,7 +47,7 @@ const List = ({ auth, leaves }) => {
                                     leaves.map(leave => (
                                         <tr key={leave.id} className="border-b border-gray-200 hover:bg-gray-100">
                                             <td className="py-3 px-6 text-left">{leave.id}</td>
-                                            <td className="py-3 px-6 text-left">{leave.user_id}</td>
+                                            <td className="py-3 px-6 text-left">{getUsername(leave.user_id)}</td>
                                             <td className="py-3 px-6 text-left">{leave.start_date}</td>
                                             <td className="py-3 px-6 text-left">{leave.end_date}</td>
                                             <td className="py-3 px-6 text-left">{leave.reason}</td>

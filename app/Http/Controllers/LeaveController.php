@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Leave;
+use App\Models\User;
 
 class LeaveController extends Controller
 {
     public function list()
     {
         $leaves = Leave::all();
+        $users = User::all();
 
         return Inertia::render('Admin/Leaves/List', [
             'leaves' => $leaves,
+            'users' => $users, 
         ]);
     }
 

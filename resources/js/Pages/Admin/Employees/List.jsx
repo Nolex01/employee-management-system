@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import NavLink from '@/Components/NavLink';
 
-const List = ({ auth, employees }) => {
+const List = ({ auth, employees, roles, departments }) => {
 
     const formatOrderTime = (timeString) => {
         const options = {
@@ -14,6 +14,16 @@ const List = ({ auth, employees }) => {
             hour12: false,
         };
         return new Date(timeString).toLocaleString('en-US', options);
+    };
+
+    const getRoleName = (roleId) => {
+        const role = roles.find(role => role.id === roleId);
+        return role ? role.name : 'Not set!';
+    };
+
+    const getDepartmentName = (departmentId) => {
+        const department = departments.find(department => department.id === departmentId);
+        return department ? department.name : 'Not set!';
     };
 
     return (
@@ -34,9 +44,9 @@ const List = ({ auth, employees }) => {
                         <table className="min-w-full bg-white">
                             <thead>
                                 <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-                                    <th className="py-3 px-6 text-left">ID</th>
+                                    <th className="py-3 px-3 text-left">ID</th>
                                     <th></th>
-                                    <th className="py-3 px-6 text-left">Name</th>
+                                    <th className="py-3 px-2 text-left">Name</th>
                                     <th className="py-3 px-6 text-left">Email</th>
                                     <th className="py-3 px-6 text-left">Phone</th>
                                     <th className="py-3 px-1 text-left">Role</th>
@@ -52,16 +62,16 @@ const List = ({ auth, employees }) => {
                                 {employees.length > 0 ? (
                                     employees.map(employee => (
                                         <tr key={employee.id} className="border-b border-gray-200 hover:bg-gray-100">
-                                            <td className="py-3 px-6 text-left">{employee.id}</td>
+                                            <td className="py-3 px-3 text-left">{employee.id}</td>
                                             <td className="py-3 px-6 text-left">
                                                 <img src={`/storage/${employee.avatar}`} alt="Avatar" className="h-15 w-15 rounded-full" />
                                             </td>
-                                            <td className="py-3 px-6 text-left">{employee.name}</td>
+                                            <td className="py-3 px-2 text-left">{employee.name}</td>
                                             <td className="py-3 px-6 text-left">{employee.email}</td>
                                             <td className="py-3 px-6 text-left">{employee.phone_number}</td>
-                                            <td className="py-3 px-6 text-left">{employee.role_id}</td>
-                                            <td className="py-3 px-6 text-left">{employee.department_id}</td>
-                                            <td className="py-3 px-6 text-left">{employee.salary.toLocaleString('en-US')}</td>
+                                            <td className="py-3 px-6 text-left">{getRoleName(employee.role_id)}</td>
+                                            <td className="py-3 px-6 text-left">{getDepartmentName(employee.department_id)}</td>
+                                            <td className="py-3 px-6 text-left">${employee.salary.toLocaleString('en-US')}</td>
                                             <td className="py-3 px-1 text-left">
                                                 {employee.is_admin === 1 ? "Yes" : "No"}
                                             </td>
