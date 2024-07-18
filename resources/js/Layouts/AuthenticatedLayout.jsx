@@ -162,11 +162,7 @@ export default function Authenticated({ user, header, children }) {
                     <div className="pt-4 pb-3 border-t border-gray-300">
                         <div className="flex items-center px-5">
                             <div className="flex-shrink-0">
-                                <img
-                                    className="h-10 w-10 rounded-full"
-                                    src={user.profile_photo_url}
-                                    alt="User Profile"
-                                />
+                                <img src={`/storage/${user.avatar}`} alt="Avatar" className="h-10 w-10 rounded-full" />
                             </div>
                             <div className="ml-3">
                                 <div className="text-base font-medium leading-none text-gray-600">{user.name}</div>
