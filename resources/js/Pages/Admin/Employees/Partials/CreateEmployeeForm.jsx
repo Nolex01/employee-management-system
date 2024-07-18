@@ -1,18 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 
 const CreateEmployeeForm = ({ departments, roles }) => {
-    const { data, setData, post, processing } = useForm();
+    const { data, setData, post, processing, errors } = useForm({
+        name: '',
+        email: '',
+        phone_number: '',
+        password: '',
+        role_id: '',
+        department_id: '',
+        salary: '',
+        avatar: null,
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('employee.store'), {
+
+        const formData = {
+            ...data,
+            avatar: data.avatar instanceof File ? data.avatar : undefined,
+        };
+
+        post(route('employee.store'), formData, {
             preserveScroll: true,
-            ...data
         });
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setData(name, value);
+    };
+
+    const handleAvatarChange = (e) => {
+        setData('avatar', e.target.files[0]);
     };
 
     return (
@@ -26,9 +49,11 @@ const CreateEmployeeForm = ({ departments, roles }) => {
                     <InputLabel htmlFor="name" value="Name" />
                     <TextInput
                         id="name"
+                        name="name"
+                        type="text"
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                        value={data.name || ''}
-                        onChange={(e) => setData('name', e.target.value)}
+                        value={data.name}
+                        onChange={handleInputChange}
                     />
                 </div>
 
@@ -36,10 +61,11 @@ const CreateEmployeeForm = ({ departments, roles }) => {
                     <InputLabel htmlFor="email" value="Email" />
                     <TextInput
                         id="email"
+                        name="email"
                         type="email"
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                        value={data.email || ''}
-                        onChange={(e) => setData('email', e.target.value)}
+                        value={data.email}
+                        onChange={handleInputChange}
                     />
                 </div>
 
@@ -47,9 +73,11 @@ const CreateEmployeeForm = ({ departments, roles }) => {
                     <InputLabel htmlFor="phone_number" value="Phone Number" />
                     <TextInput
                         id="phone_number"
+                        name="phone_number"
+                        type="text"
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                        value={data.phone_number || ''}
-                        onChange={(e) => setData('phone_number', e.target.value)}
+                        value={data.phone_number}
+                        onChange={handleInputChange}
                     />
                 </div>
 
@@ -57,10 +85,11 @@ const CreateEmployeeForm = ({ departments, roles }) => {
                     <InputLabel htmlFor="password" value="Password" />
                     <TextInput
                         id="password"
+                        name="password"
                         type="password"
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                        value={data.password || ''}
-                        onChange={(e) => setData('password', e.target.value)}
+                        value={data.password}
+                        onChange={handleInputChange}
                     />
                 </div>
 
@@ -68,9 +97,10 @@ const CreateEmployeeForm = ({ departments, roles }) => {
                     <InputLabel htmlFor="role_id" value="Role" />
                     <select
                         id="role_id"
+                        name="role_id"
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                        value={data.role_id || ''}
-                        onChange={(e) => setData('role_id', e.target.value)}
+                        value={data.role_id}
+                        onChange={handleInputChange}
                     >
                         <option value="">Select Role</option>
                         {roles.map(role => (
@@ -85,9 +115,10 @@ const CreateEmployeeForm = ({ departments, roles }) => {
                     <InputLabel htmlFor="department_id" value="Department" />
                     <select
                         id="department_id"
+                        name="department_id"
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                        value={data.department_id || ''}
-                        onChange={(e) => setData('department_id', e.target.value)}
+                        value={data.department_id}
+                        onChange={handleInputChange}
                     >
                         <option value="">Select Department</option>
                         {departments.map(department => (
@@ -102,11 +133,24 @@ const CreateEmployeeForm = ({ departments, roles }) => {
                     <InputLabel htmlFor="salary" value="Salary" />
                     <TextInput
                         id="salary"
+                        name="salary"
                         type="number"
                         step="1"
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                        value={data.salary || ''}
-                        onChange={(e) => setData('salary', e.target.value)}
+                        value={data.salary}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="avatar" value="Avatar" />
+                    <input
+                        id="avatar"
+                        name="avatar"
+                        type="file"
+                        accept="image/png, image/jpeg"
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        onChange={handleAvatarChange}
                     />
                 </div>
 
