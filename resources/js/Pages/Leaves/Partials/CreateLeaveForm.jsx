@@ -4,7 +4,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 
 const CreateLeaveForm = () => {
-    const { data, setData, post, processing } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         start_date: '',
         end_date: '',
         reason: '',
@@ -57,6 +57,17 @@ const CreateLeaveForm = () => {
                         onChange={(e) => setData('reason', e.target.value)}
                     />
                 </div>
+
+                {Object.keys(errors).length > 0 && (
+                    <div className="mt-4 p-2 bg-red-100 border border-red-400 text-red-700">
+                        <p className="font-bold">Please fix the following errors:</p>
+                        <ul className="list-disc list-inside">
+                            {Object.keys(errors).map((key) => (
+                                <li key={key}>{errors[key]}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
 
                 <div className="flex justify-end">
                     <PrimaryButton disabled={processing}>
