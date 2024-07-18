@@ -103,11 +103,8 @@ export default function Authenticated({ user, header, children }) {
                                         className="flex items-center text-sm font-medium text-gray-600 focus:outline-none"
                                     >
                                         <span className="mr-1">{user.name}</span>
-                                        <img
-                                            className="h-8 w-8 rounded-full"
-                                            src={user.profile_photo_url}
-                                            alt="User Profile"
-                                        />
+
+                                        <img src={`/storage/${user.avatar}`} alt="Avatar" className="h-12 w-12 rounded-full" />
                                     </button>
                                 </Dropdown.Trigger>
                                 <Dropdown.Content>

@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\Role;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -43,7 +44,13 @@ class EmployeeController extends Controller
             'role_id' => 'nullable|exists:roles,id',
             'department_id' => 'nullable|exists:departments,id',
             'salary' => 'required|numeric|min:0',
+            'avatar' => 'nullable',
         ]);
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $validatedData['avatar'] = $avatarPath;
+        } 
 
         $employee = User::create($validatedData);
 
@@ -90,6 +97,9 @@ class EmployeeController extends Controller
 
     public function delete(User $employee)
     {
+        if ($employee->avatar) {
+            Storage::disk('public')->delete($employee->avatar);
+        }
         $employee->delete();
         return to_route('employees.list');
     }
@@ -97,6 +107,29 @@ class EmployeeController extends Controller
     public function export() 
     {
         return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = auth()->user();
+
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $avatarPath;
+            $user->save();
+
+            return redirect()->back()->with('success', 'Avatar updated successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Avatar update failed. Please select an image file.');
     }
 
 }

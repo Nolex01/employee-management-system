@@ -35,6 +35,7 @@ const List = ({ auth, employees }) => {
                             <thead>
                                 <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
                                     <th className="py-3 px-6 text-left">ID</th>
+                                    <th></th>
                                     <th className="py-3 px-6 text-left">Name</th>
                                     <th className="py-3 px-6 text-left">Email</th>
                                     <th className="py-3 px-6 text-left">Phone</th>
@@ -52,6 +53,9 @@ const List = ({ auth, employees }) => {
                                     employees.map(employee => (
                                         <tr key={employee.id} className="border-b border-gray-200 hover:bg-gray-100">
                                             <td className="py-3 px-6 text-left">{employee.id}</td>
+                                            <td className="py-3 px-6 text-left">
+                                                <img src={`/storage/${employee.avatar}`} alt="Avatar" className="h-15 w-15 rounded-full" />
+                                            </td>
                                             <td className="py-3 px-6 text-left">{employee.name}</td>
                                             <td className="py-3 px-6 text-left">{employee.email}</td>
                                             <td className="py-3 px-6 text-left">{employee.phone_number}</td>
