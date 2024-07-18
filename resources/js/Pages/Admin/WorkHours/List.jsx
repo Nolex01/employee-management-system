@@ -43,7 +43,7 @@ const List = ({ auth, workhours, users }) => {
                                             <td className="py-3 px-6 text-left">{workhour.id}</td>
                                             <td className="py-3 px-6 text-left">{getUsername(workhour.user_id)}</td>
                                             <td className="py-3 px-6 text-left">{formatOrderTime(workhour.check_in)}</td>
-                                            <td className="py-3 px-6 text-left">{formatOrderTime(workhour.check_out)}</td>
+                                            <td className="py-3 px-6 text-left">{workhour.check_out ? formatOrderTime(workhour.check_out) : "Not Yet"}</td>
                                         </tr>
                                     ))
                                 ) : (
