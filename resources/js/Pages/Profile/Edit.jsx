@@ -4,7 +4,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import DeleteUserForm from './Partials/DeleteUserForm';
-import AvatarUpload from './Partials/AvatarUpload'; // Import the AvatarUpload component
+import AvatarUpload from './Partials/AvatarUpload';
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
     return (

@@ -1,6 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import NavLink from '@/Components/NavLink';
 
 const List = ({ auth, workhours, users }) => {
 
