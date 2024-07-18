@@ -19,7 +19,7 @@ export default function Dashboard({ auth }) {
                                     <p className="text-sm text-gray-600">Here's your Employee Management Dashboard.</p>
                                 </div>
                                 <div className="flex-shrink-0">
-                                    <img src={auth.user.profile_photo_url} alt="User Avatar" className="h-12 w-12 rounded-full" />
+                                    <img src={`/storage/${auth.user.avatar}`} alt="Avatar" className="h-12 w-12 rounded-full" />
                                 </div>
                             </div>
                             
