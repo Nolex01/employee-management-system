@@ -16,9 +16,13 @@ class EmployeeController extends Controller
     public function list()
     {
         $users = User::all();
+        $departments = Department::all();
+        $roles = Role::all();
 
         return Inertia::render('Admin/Employees/List', [
             'employees' => $users,
+            'departments' => $departments,
+            'roles' => $roles,
         ]);
     }
 
