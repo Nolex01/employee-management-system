@@ -47,16 +47,28 @@ class WorkHourController extends Controller
     
         $validatedData['user_id'] = auth()->id();
     
-        $existingWorkhour = WorkHour::where('user_id', $validatedData['user_id'])
-                                    ->whereDate('created_at', now()->toDateString())
-                                    ->first();
+        $lastWorkhour = WorkHour::where('user_id', $validatedData['user_id'])
+                                ->orderBy('created_at', 'desc')
+                                ->first();
     
-        if ($existingWorkhour) {
-            return redirect()->back()->with('error', 'You have already checked in or out for today.');
+
+        if($validatedData['check_in']){
+            if ($lastWorkhour && is_null($lastWorkhour->check_out)) {
+                return redirect()->back()->with('error', 'You cannot create a new record until the previous record not closed.');
+            } else {
+                $workhour = WorkHour::create($validatedData);
+            }
         }
-    
-        $workhour = WorkHour::create($validatedData);
-    
+
+        if($validatedData['check_out']){
+            if ($lastWorkhour && (is_null($lastWorkhour->check_in) || isset($lastWorkhour->check_out))) {
+                return redirect()->back()->with('error', 'You cannot create a new record until the previous record not closed.');
+            } else {
+
+                $lastWorkhour->update(['check_out' => $validatedData['check_out']]);
+            }
+        }
+        
         $userWorkHours = WorkHour::where('user_id', $validatedData['user_id'])->get();
     
         return Inertia::render('WorkHours/List', [
