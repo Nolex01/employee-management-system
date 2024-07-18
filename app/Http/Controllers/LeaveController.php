@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Inertia\Inertia;
 use App\Models\Leave;
 use App\Models\User;
@@ -38,16 +39,18 @@ class LeaveController extends Controller
 
     public function store(Request $request)
     {
+        $today = Carbon::today()->format('Y-m-d');
+    
         $validatedData = $request->validate([
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'start_date' => ['required', 'date', 'after_or_equal:' . $today],
+            'end_date' => ['required', 'date', 'after_or_equal:start_date'],
             'reason' => 'required|string|max:50',
         ]);
-
+    
         $validatedData['user_id'] = auth()->id();
         $validatedData['status'] = "Pending";
         $leave = Leave::create($validatedData);
-
+    
         $userId = $validatedData['user_id'];
         $userLeaves = Leave::where('user_id', $userId)->get();
     
