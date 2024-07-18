@@ -5,7 +5,7 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 
 const DeleteDepartmentForm = ({ department }) => {
-    const { destroy, processing } = useForm();
+    const { destroy, processing, errors } = useForm();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,6 +50,17 @@ const DeleteDepartmentForm = ({ department }) => {
                         disabled
                     />
                 </div>
+
+                {Object.keys(errors).length > 0 && (
+                    <div className="mt-4 p-2 bg-red-100 border border-red-400 text-red-700">
+                        <p className="font-bold">Please fix the following errors:</p>
+                        <ul className="list-disc list-inside">
+                            {Object.keys(errors).map((key) => (
+                                <li key={key}>{errors[key]}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
 
                 <div className="flex justify-end">
                     <PrimaryButton disabled={processing}>Delete</PrimaryButton>
