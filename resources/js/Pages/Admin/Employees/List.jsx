@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import NavLink from '@/Components/NavLink';
 
 const List = ({ auth, employees, roles, departments }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const totalPages = Math.ceil(employees.length / itemsPerPage);
 
     const formatOrderTime = (timeString) => {
         const options = {
@@ -25,6 +29,23 @@ const List = ({ auth, employees, roles, departments }) => {
         const department = departments.find(department => department.id === departmentId);
         return department ? department.name : 'Not set!';
     };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const currentData = employees.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -59,8 +80,8 @@ const List = ({ auth, employees, roles, departments }) => {
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 text-sm font-light">
-                                {employees.length > 0 ? (
-                                    employees.map(employee => (
+                                {currentData.length > 0 ? (
+                                    currentData.map(employee => (
                                         <tr key={employee.id} className="border-b border-gray-200 hover:bg-gray-100">
                                             <td className="py-3 px-3 text-left">{employee.id}</td>
                                             <td className="py-3 px-6 text-left">
@@ -86,12 +107,31 @@ const List = ({ auth, employees, roles, departments }) => {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="10" className="py-3 px-6 text-left text-gray-600">No employees found.</td>
+                                        <td colSpan="12" className="py-3 px-6 text-left text-gray-600">No employees found.</td>
                                     </tr>
                                 )}
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div className="mt-4 flex justify-between items-center">
+                    <button
+                        onClick={handlePreviousPage}
+                        disabled={currentPage === 1}
+                        className="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded disabled:opacity-50"
+                    >
+                        Previous
+                    </button>
+                    <span className="text-gray-700">
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={handleNextPage}
+                        disabled={currentPage === totalPages}
+                        className="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded disabled:opacity-50"
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
 const List = ({ auth, leaves, users }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const totalPages = Math.ceil(leaves.length / itemsPerPage);
 
     const formatOrderTime = (timeString) => {
         const options = {
@@ -17,8 +21,25 @@ const List = ({ auth, leaves, users }) => {
 
     const getUsername = (userId) => {
         const user = users.find(user => user.id === userId);
-        return user ? user.name : 'Unkown!';
+        return user ? user.name : 'Unknown!';
     };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const currentData = leaves.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -42,8 +63,8 @@ const List = ({ auth, leaves, users }) => {
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 text-sm font-light">
-                                {leaves.length > 0 ? (
-                                    leaves.map(leave => (
+                                {currentData.length > 0 ? (
+                                    currentData.map(leave => (
                                         <tr key={leave.id} className="border-b border-gray-200 hover:bg-gray-100">
                                             <td className="py-3 px-6 text-left">{leave.id}</td>
                                             <td className="py-3 px-6 text-left">{getUsername(leave.user_id)}</td>
@@ -66,6 +87,25 @@ const List = ({ auth, leaves, users }) => {
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div className="mt-4 flex justify-between items-center">
+                    <button
+                        onClick={handlePreviousPage}
+                        disabled={currentPage === 1}
+                        className="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded disabled:opacity-50"
+                    >
+                        Previous
+                    </button>
+                    <span className="text-gray-700">
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={handleNextPage}
+                        disabled={currentPage === totalPages}
+                        className="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded disabled:opacity-50"
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
         </AuthenticatedLayout>
