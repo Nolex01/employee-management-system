@@ -28,7 +28,7 @@
 
 1. Clone the Repository
    ```sh
-   git clone https://github.com/yourusername/employee-management-system.git
+   git clone https://github.com/Nolex01/employee-management-system
    ```
 2. Rename and Configure Environment File
    ```sh
